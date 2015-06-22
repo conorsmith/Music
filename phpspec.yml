@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: ConorSmith\Music
+        psr4_prefix: ConorSmith\Music
+        src_path: app
