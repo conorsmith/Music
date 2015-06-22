@@ -19,7 +19,10 @@ class AlbumCacheRepository implements AlbumRepository
     public function all()
     {
         if (!$this->cache->has(self::KEY)) {
-            throw new \DomainException("The Album cache is empty.");
+            return [
+                'albums' => [],
+                'artists' => [],
+            ];
         }
 
         return $this->cache->get(self::KEY);
