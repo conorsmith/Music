@@ -24,7 +24,7 @@ class GoogleAuthController extends Controller
     {
         if (\Request::has('code')) {
             $accessToken = $this->client->authenticate(\Request::get('code'));
-            \Cache::put('google.access_token', $accessToken, 3600);
+            \Cache::put('google.access_token', $accessToken, 60);
         }
 
         return redirect(env('GOOGLE_CALLBACK_ACTUAL_ROOT', "") . "/dashboard");
