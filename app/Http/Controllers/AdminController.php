@@ -27,7 +27,12 @@ class AdminController extends Controller
     {
         $repo->destroy();
 
-        $repo->save($drive->requestAlbums());
+        $import = $drive->requestAlbums();
+
+        $repo->save([
+            'artists' => $import->getArtists(),
+            'albums' => $import->getAlbums(),
+        ]);
 
         return redirect('/dashboard');
     }

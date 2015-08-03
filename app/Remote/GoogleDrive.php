@@ -30,6 +30,7 @@ class GoogleDrive
             $rows = array_merge($csv->fetchAssoc(), $rows);
         }
 
-        return $this->importer->importRows($rows);
+        //return $this->importer->importRows($rows);
+        return GoogleSheetsImport::fromUnprocessedRows($rows);
     }
 }

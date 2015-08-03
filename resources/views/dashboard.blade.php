@@ -12,7 +12,7 @@
                     @if ($hasAccessToken)
                         <form method="post" action="/update">
                             {!! csrf_field() !!}
-                            <button type="submit" class="btn btn-default btn-block">
+                            <button type="submit" class="btn btn-default btn-block btn-raised">
                                 Update Cached Albums
                             </button>
                         </form>
@@ -30,12 +30,16 @@
 
                 </div>
                 <ul class="list-group">
-                    <a href="{{ route('albums') }}" class="list-group-item">
-                        <span class="badge">{{ $albumCount }}</span> Albums
-                    </a>
-                    <a href="{{ route('artists') }}" class="list-group-item">
-                        <span class="badge">{{ $artistCount }}</span> Artists
-                    </a>
+                    <p>
+                      <a href="{{ route('albums') }}" class="list-group-item">
+                          <span class="badge">{{ $albumCount }}</span> Albums
+                      </a>
+                    </p>
+                    <p>
+                      <a href="{{ route('artists') }}" class="list-group-item">
+                          <span class="badge">{{ $artistCount }}</span> Artists
+                      </a>
+                    </p>
                 </ul>
             </div>
         </div>

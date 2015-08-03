@@ -5,7 +5,7 @@ namespace ConorSmith\Music\Persistence;
 use ConorSmith\Music\Model\AlbumRepository;
 use Illuminate\Cache\Repository;
 
-class AlbumCacheRepository implements AlbumRepository
+class AlbumStructCacheRepository implements AlbumRepository
 {
     const KEY = 'data';
 

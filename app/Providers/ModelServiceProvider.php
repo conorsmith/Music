@@ -25,7 +25,7 @@ class ModelServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             \ConorSmith\Music\Model\AlbumRepository::class,
-            \ConorSmith\Music\Persistence\AlbumCacheRepository::class
+            \ConorSmith\Music\Persistence\AlbumStructCacheRepository::class
         );
     }
 }
