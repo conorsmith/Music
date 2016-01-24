@@ -16,18 +16,6 @@ class AlbumStructCacheRepository implements AlbumRepository
         $this->cache = $cache;
     }
 
-    public function all()
-    {
-        if (!$this->cache->has(self::KEY)) {
-            return [
-                'albums' => [],
-                'artists' => [],
-            ];
-        }
-
-        return $this->cache->get(self::KEY);
-    }
-
     public function save(array $albums)
     {
         $this->cache->forever(self::KEY, $albums);
@@ -36,5 +24,16 @@ class AlbumStructCacheRepository implements AlbumRepository
     public function destroy()
     {
         $this->cache->forget(self::KEY);
+    }
+
+    public function allByFirstListenTime()
+    {
+        if (!$this->cache->has(self::KEY)) {
+            return [];
+        }
+
+        return collect($this->cache->get(self::KEY)['albums'])
+            ->reverse()
+            ->toArray();
     }
 }

@@ -3,6 +3,7 @@
 namespace ConorSmith\Music\Http\Controllers;
 
 use ConorSmith\Music\Model\AlbumRepository;
+use ConorSmith\Music\Model\ArtistRepository;
 use ConorSmith\Music\Remote\GoogleDrive;
 
 class AdminController extends Controller
@@ -12,14 +13,12 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-    public function dashboard(AlbumRepository $repo)
+    public function dashboard(AlbumRepository $albumRepo, ArtistRepository $artistRepo)
     {
-        $albums = $repo->all();
-
         return view('dashboard', [
             'hasAccessToken' => \Cache::has('google.access_token'),
-            'albumCount' => count($albums['albums']),
-            'artistCount' => count($albums['artists']),
+            'albumCount' => count($albumRepo->allByFirstListenTime()),
+            'artistCount' => count($artistRepo->allByName()),
         ]);
     }
 

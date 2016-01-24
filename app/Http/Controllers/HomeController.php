@@ -5,54 +5,49 @@ namespace ConorSmith\Music\Http\Controllers;
 use ConorSmith\Music\Model\Album;
 use ConorSmith\Music\Model\AlbumRepository;
 use ConorSmith\Music\Model\Artist;
+use ConorSmith\Music\Model\ArtistRepository;
 
 class HomeController extends Controller
 {
-    private $repo;
-
-    public function __construct(AlbumRepository $repo)
+    public function index(AlbumRepository $albumRepo)
     {
-        $this->repo = $repo;
-    }
-
-    public function index()
-    {
-        $data = $this->repo->all();
+        $albums = $albumRepo->allByFirstListenTime();
 
         return view('home', [
-            'albums' => array_map([$this, 'transformAlbum'], array_reverse($data['albums'])),
+            'albums' => $this->transformAlbums($albums),
         ]);
     }
 
-    public function artists()
+    public function artists(ArtistRepository $artistRepo)
     {
-        $data = $this->repo->all();
-
-        $artists = $data['artists'];
-
-        uasort($artists, function ($a, $b) {
-            return strcasecmp($a[0]->getArtist()->getName(), $b[0]->getArtist()->getName());
-        });
+        $artists = $artistRepo->allByName();
 
         return view('artists', [
-            'artists' => array_map(function (array $albums) {
-                uasort($albums, function ($a, $b) {
-                    return strcasecmp($a->getReleaseDate()->getValue(), $b->getReleaseDate()->getValue());
-                });
-
-                return array_map([$this, 'transformAlbum'], $albums);
-            }, $artists),
+            'artists' => collect($artists)
+                ->map(function (array $albums) {
+                    $this->transformAlbums($albums);
+                })
+                ->toArray(),
         ]);
+    }
+
+    private function transformAlbums(array $albums)
+    {
+        return collect($albums)
+            ->map(function ($album) {
+                return $this->transformAlbum($album);
+            })
+            ->toArray();
     }
 
     private function transformAlbum(Album $album)
     {
         return [
-            'title' => strval($album->getTitle()),
-            'artist' => strval($album->getArtist()->getName()),
-            'listened_at' => $album->getListenedAt()->getDate()->format('d/m/Y'),
-            'year' => strval($album->getReleaseDate()->getValue()),
-            'rating' => $album->getRating()->getValue(),
+            'title'         => strval($album->getTitle()),
+            'artist'        => strval($album->getArtist()->getName()),
+            'listened_at'   => $album->getListenedAt()->getDate()->format('d/m/Y'),
+            'year'          => strval($album->getReleaseDate()->getValue()),
+            'rating'        => $album->getRating()->getValue(),
             'artist_colour' => $this->getColourForArtist($album->getArtist()),
         ];
     }

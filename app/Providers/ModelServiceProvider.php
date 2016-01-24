@@ -27,5 +27,10 @@ class ModelServiceProvider extends ServiceProvider
             \ConorSmith\Music\Model\AlbumRepository::class,
             \ConorSmith\Music\Persistence\AlbumStructCacheRepository::class
         );
+
+        $this->app->bind(
+            \ConorSmith\Music\Model\ArtistRepository::class,
+            \ConorSmith\Music\Persistence\ArtistAlbumStrictCacheRepository::class
+        );
     }
 }
