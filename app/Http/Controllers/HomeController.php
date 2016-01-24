@@ -24,8 +24,8 @@ class HomeController extends Controller
 
         return view('artists', [
             'artists' => collect($discographies)
-                ->map(function (array $albums) {
-                    return $this->transformAlbums($albums);
+                ->map(function ($discography) {
+                    return $this->transformAlbums($discography->getAlbums());
                 })
                 ->toArray(),
         ]);

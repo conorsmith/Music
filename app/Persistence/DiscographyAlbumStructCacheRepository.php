@@ -2,6 +2,7 @@
 
 namespace ConorSmith\Music\Persistence;
 
+use ConorSmith\Music\Model\Discography;
 use ConorSmith\Music\Model\DiscographyRepository;
 use Illuminate\Contracts\Cache\Repository;
 
@@ -28,14 +29,14 @@ class DiscographyAlbumStructCacheRepository implements DiscographyRepository
                 );
             })
             ->map(function (array $albums) {
-                return collect($albums)
+                return Discography::fromAlbums(collect($albums)
                     ->sort(function ($a, $b) {
                         return strcasecmp(
                             $a->getReleaseDate()->getValue(),
                             $b->getReleaseDate()->getValue()
                         );
                     })
-                    ->toArray();
+                    ->toArray());
             })
             ->toArray();
     }
