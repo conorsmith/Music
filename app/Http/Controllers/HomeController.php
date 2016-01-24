@@ -5,7 +5,7 @@ namespace ConorSmith\Music\Http\Controllers;
 use ConorSmith\Music\Model\Album;
 use ConorSmith\Music\Model\AlbumRepository;
 use ConorSmith\Music\Model\Artist;
-use ConorSmith\Music\Model\ArtistRepository;
+use ConorSmith\Music\Model\DiscographyRepository;
 
 class HomeController extends Controller
 {
@@ -18,14 +18,14 @@ class HomeController extends Controller
         ]);
     }
 
-    public function artists(ArtistRepository $artistRepo)
+    public function artists(DiscographyRepository $discographyRepo)
     {
-        $artists = $artistRepo->allByName();
+        $discographies = $discographyRepo->allByArtistName();
 
         return view('artists', [
-            'artists' => collect($artists)
+            'artists' => collect($discographies)
                 ->map(function (array $albums) {
-                    $this->transformAlbums($albums);
+                    return $this->transformAlbums($albums);
                 })
                 ->toArray(),
         ]);

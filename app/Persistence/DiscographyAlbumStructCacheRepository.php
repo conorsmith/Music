@@ -2,10 +2,10 @@
 
 namespace ConorSmith\Music\Persistence;
 
-use ConorSmith\Music\Model\ArtistRepository;
+use ConorSmith\Music\Model\DiscographyRepository;
 use Illuminate\Contracts\Cache\Repository;
 
-class ArtistAlbumStrictCacheRepository implements ArtistRepository
+class DiscographyAlbumStructCacheRepository implements DiscographyRepository
 {
     private $cache;
 
@@ -14,7 +14,7 @@ class ArtistAlbumStrictCacheRepository implements ArtistRepository
         $this->cache = $cache;
     }
 
-    public function allByName()
+    public function allByArtistName()
     {
         if (!$this->cache->has(AlbumStructCacheRepository::KEY)) {
             return [];
