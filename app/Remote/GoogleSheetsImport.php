@@ -15,6 +15,12 @@ class GoogleSheetsImport
         $albums = [];
         $artists = [];
         $previousDate = false;
+        
+        $unprocessedRows = collect($unprocessedRows)
+            ->reject(function ($row) {
+                return is_null($row['Album']);
+            })
+            ->toArray();
 
         foreach ($unprocessedRows as $row) {
             if ($row['Week']) {
