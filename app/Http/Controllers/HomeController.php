@@ -2,6 +2,7 @@
 
 namespace ConorSmith\Music\Http\Controllers;
 
+use Carbon\Carbon;
 use ConorSmith\Music\Model\Album;
 use ConorSmith\Music\Model\AlbumRepository;
 use ConorSmith\Music\Model\Artist;
@@ -9,11 +10,23 @@ use ConorSmith\Music\Model\DiscographyRepository;
 
 class HomeController extends Controller
 {
-    public function index(AlbumRepository $albumRepo)
+    public function home(AlbumRepository $albumRepo)
+    {
+        $albums = $albumRepo->findForThisWeek();
+
+        return view('home', [
+            'albums' => $this->transformAlbums($albums),
+        ]);
+    }
+
+    public function albums(AlbumRepository $albumRepo)
     {
         $albums = $albumRepo->allByFirstListenTime();
 
-        return view('home', [
+        return view('albums', [
+            'thisWeek' => Carbon::now("Europe/Dublin")->dayOfWeek === Carbon::MONDAY
+                ? new Carbon("today", "Europe/Dublin")
+                : new Carbon("last Monday", "Europe/Dublin"),
             'albums' => $this->transformAlbums($albums),
         ]);
     }

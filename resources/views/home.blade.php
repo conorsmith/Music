@@ -1,50 +1,70 @@
 @extends('app')
 
-@section('tabs')
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Albums</a></li>
-        <li><a href="/artists">Artists</a></li>
-      </ul>
-    </div>
-  </nav>
-@endsection
-
 @section('content')
 
-  <div class="table-responsive" style="background: #fff;">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Listened</th>
-                <th>Artist</th>
-                <th>Album</th>
-                <th>Year</th>
-                <th>Rating</th>
-            </tr>
-        </thead>
-        @foreach ($albums as $album)
-            <tr>
-                <td>{{ $album['listened_at'] }}</td>
-                <td><a href="/artists/#{{ $album['artist'] }}">{{ $album['artist'] }}</a></td>
-                <td>{{ $album['title'] }}</td>
-                <td>{{ $album['year'] ?: "&ndash;" }}</td>
-                <td style="width: 160px;">
-                    @if($album['rating'])
-                        @for($i = 1; $i <= 5; $i++)
-                            @if($i * 2 <= $album['rating'])
-                                <i class="mdi-toggle-star"></i>
-                            @elseif(($i * 2) - 1 == $album['rating'])
-                                <i class="mdi-toggle-star-half"></i>
-                            @else
-                                <i class="mdi-toggle-star-outline"></i>
-                            @endif
-                        @endfor
-                    @endif
-                </td>
-            </tr>
-        @endforeach
-    </table>
+  <div class="panel panel-default">
+    <div class="panel-heading">This Week's Albums</div>
+    <div class="panel-body">
+      <div class="row">
+
+        @if(count($albums) > 0)
+          @foreach($albums as $i => $album)
+            <div class="col-md-2 {{ $i === 0 && count($albums) < 6 ? 'col-md-offset-' . (6 - count($albums)) : '' }}"
+                style="text-align: center;">
+              <img src="https://coverartarchive.org/release/54c917b3-5955-4b2a-b1b7-b129d126eeff/8121540978-250.jpg" style="width: 150px; height: 150px;">
+              <h4 style="margin-bottom: 6px;">{{ $album['title'] }}</h4>
+              <p style="margin-bottom: 3px;"><strong>{{ $album['artist'] }}</strong></p>
+              <p><em>{{ $album['year'] }}</em></p>
+            </div>
+          @endforeach
+        @else
+          <h2 style="text-align: center; font-weight: bold; text-transform: uppercase; color: #666;">No albums this week</h2>
+        @endif
+      </div>
+    </div>
   </div>
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Spotify Playlists</div>
+        <table class="table" style="font-size: 18px; font-weight: bold; text-align: center;">
+          <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/6XIKbhQPEngjIoqZbEjO8R?si=suS4H4y2RM2_jybA_zIUzg" style="display: block;" target="_blank">Why Not?</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/5bwC6oS06VV5NfjWUHgMwj?si=TENNmuaLQ6aDSLsd35EfoQ" style="display: block;" target="_blank">Obviously</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/77W1COwhHoyqK8vv94L70Z?si=hnDPgRniSuWw314tmDq4ng" style="display: block;" target="_blank">Great TV Tracks</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/0lTaHurEjAOela1j0wkKtw?si=F0pRreQSQtGATfSR1RGt8w" style="display: block;" target="_blank">30</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/3TuFrgRGVW0cuvq8E04brL?si=MCdc39_TQpm1xzByKHFVXQ" style="display: block;" target="_blank">Top 2018 Tracks</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/2n61FUNrYRBcfWC9Ui5XJh?si=YT7juBepTb2QUtgJxHtqfg" style="display: block;" target="_blank">Top 2017 Tracks</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/5KnYIXuFpgVyC3k1KD5XUc?si=immeBkstSVO8i4gDwEkTlQ" style="display: block;" target="_blank">Top 2016 Tracks</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/4bMwkdOFKI8Fi1He4Itvc4?si=2hBgYyjgQQ2Lu9kieo7grA" style="display: block;" target="_blank">Finds of 2016</a></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Willennium</div>
+        <div class="panel-body" style="text-align: center;">
+          <p style="font-size: 90px; font-weight: bold;">3</p>
+          <p>Current Number of Copies of <em>Willennium</em><br>owned by Conor Smith</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Top Ten Albums</div>
+        <div class="panel-body"><p>These are Conor Smith's top ten albums each year for a number of recent years.</p></div>
+        <table class="table" style="font-size: 18px; font-weight: bold; text-align: center;">
+          <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2017" style="display: block;">2017</a></td></tr>
+          <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2016" style="display: block;">2016</a></td></tr>
+          <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2015" style="display: block;">2015</a></td></tr>
+          <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2014" style="display: block;">2014</a></td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
 @endsection

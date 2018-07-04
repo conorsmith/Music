@@ -34,7 +34,7 @@ class GoogleSheetsImport
             $rating = array_get($row, 'Rating');
 
             if (is_null($rating) && array_key_exists('"Rating"', $row)) {
-                $rating = $row['"Rating"'] * 2;
+                $rating = intval($row['"Rating"']) * 2;
             }
 
             $album = Album::fromGoogleSheetsRow([

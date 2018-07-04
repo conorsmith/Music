@@ -35,5 +35,12 @@ class FirstListenTime
     {
         return $this->date;
     }
+
+    public function isFromListeningPeriod(Carbon $listeningPeriod)
+    {
+        return $this->date->year === $listeningPeriod->year
+            && $this->date->month === $listeningPeriod->month
+            && $this->date->day === $listeningPeriod->day;
+    }
 }
  

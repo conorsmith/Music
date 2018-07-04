@@ -1,8 +1,13 @@
 <?php
 
 Route::get('/', [
+    'as' => 'home',
+    'uses' => 'HomeController@home',
+]);
+
+Route::get('albums', [
     'as' => 'albums',
-    'uses' => 'HomeController@index',
+    'uses' => 'HomeController@albums',
 ]);
 
 Route::get('artists', [

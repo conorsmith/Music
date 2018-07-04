@@ -1,16 +1,5 @@
 @extends('app')
 
-@section('tabs')
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <ul class="nav navbar-nav">
-        <li><a href="/">Albums</a></li>
-        <li class="active"><a href="/artists">Artists</a></li>
-      </ul>
-    </div>
-  </nav>
-@endsection
-
 @section('content')
   @foreach($artists as $artist)
     <div class="card card-default card-{{ $artist[0]['artist_colour'] }}" id="{{ $artist[0]['artist'] }}">

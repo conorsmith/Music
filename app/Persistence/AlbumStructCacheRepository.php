@@ -2,6 +2,7 @@
 
 namespace ConorSmith\Music\Persistence;
 
+use ConorSmith\Music\Clock;
 use ConorSmith\Music\Model\AlbumRepository;
 use Illuminate\Cache\Repository;
 
@@ -9,11 +10,16 @@ class AlbumStructCacheRepository implements AlbumRepository
 {
     const KEY = 'data';
 
+    /** @var Repository */
     private $cache;
 
-    public function __construct(Repository $cache)
+    /** @var Clock */
+    private $clock;
+
+    public function __construct(Repository $cache, Clock $clock)
     {
         $this->cache = $cache;
+        $this->clock = $clock;
     }
 
     public function save(array $albums)
@@ -34,6 +40,20 @@ class AlbumStructCacheRepository implements AlbumRepository
 
         return collect($this->cache->get(self::KEY)['albums'])
             ->reverse()
+            ->toArray();
+    }
+
+    public function findForThisWeek()
+    {
+        if (!$this->cache->has(self::KEY)) {
+            return [];
+        }
+
+        return collect($this->cache->get(self::KEY)['albums'])
+            ->filter(function ($album) {
+                return $album->getListenedAt()->isFromListeningPeriod($this->clock->mondayThisWeek());
+            })
+            ->values()
             ->toArray();
     }
 }

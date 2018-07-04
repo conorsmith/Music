@@ -8,4 +8,5 @@ interface AlbumRepository
     public function destroy();
 
     public function allByFirstListenTime();
+    public function findForThisWeek();
 }
