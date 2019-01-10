@@ -57,6 +57,7 @@
         <div class="panel-heading">Top Ten Albums</div>
         <div class="panel-body"><p>These are Conor Smith's top ten albums each year for a number of recent years.</p></div>
         <table class="table" style="font-size: 18px; font-weight: bold; text-align: center;">
+          <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2018" style="display: block;">2018</a></td></tr>
           <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2017" style="display: block;">2017</a></td></tr>
           <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2016" style="display: block;">2016</a></td></tr>
           <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2015" style="display: block;">2015</a></td></tr>
