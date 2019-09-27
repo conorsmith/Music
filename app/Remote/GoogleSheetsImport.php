@@ -76,25 +76,5 @@ class GoogleSheetsImport
     {
         return $this->albums;
     }
-
-    /**
-     * @return array
-     */
-    public function getArtists()
-    {
-        $artists = [];
-
-        foreach ($this->albums as $album) {
-            $key = $album->getArtist()->getKey();
-
-            if (!array_key_exists($key, $artists)) {
-                $artists[$key] = [];
-            }
-
-            $artists[$key][] = $album;
-        }
-
-        return $artists;
-    }
 }
  
