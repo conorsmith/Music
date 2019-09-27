@@ -37,10 +37,8 @@ class GoogleServiceProvider extends ServiceProvider
             $client->addScope(Google_Service_Drive::DRIVE_READONLY);
             $client->setRedirectUri($uriRoot . "/auth/callback");
 
-            $cache = $app['Illuminate\Contracts\Cache\Repository'];
-
-            if ($cache->has('google.access_token')) {
-                $client->setAccessToken($cache->get('google.access_token'));
+            if (\Session::has('google.access_token')) {
+                $client->setAccessToken(\Session::get('google.access_token'));
             }
 
             return $client;

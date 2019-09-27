@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function dashboard(AlbumRepository $albumRepo, DiscographyRepository $discographyRepo)
     {
         return view('dashboard', [
-            'hasAccessToken' => \Cache::has('google.access_token'),
+            'hasAccessToken' => \Session::has('google.access_token'),
             'albumCount' => count($albumRepo->allByFirstListenTime()),
             'artistCount' => count($discographyRepo->allByArtistName()),
         ]);
