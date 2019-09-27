@@ -5,6 +5,7 @@ namespace ConorSmith\Music\Http\Controllers;
 use ConorSmith\Music\Model\AlbumRepository;
 use ConorSmith\Music\Model\DiscographyRepository;
 use ConorSmith\Music\Remote\GoogleDrive;
+use ConorSmith\Music\Remote\ImportRepository;
 
 class AdminController extends Controller
 {
@@ -31,15 +32,17 @@ class AdminController extends Controller
         ]);
     }
 
-    public function update(AlbumRepository $repo, GoogleDrive $drive)
+    public function update(ImportRepository $importRepo, GoogleDrive $drive)
     {
-        $repo->destroy();
+        $importRepo->deleteAllImportedAlbums();
 
         $import = $drive->requestAlbums();
 
         foreach ($import->getAlbums() as $album) {
-            $repo->save($album);
+            $this->albumRepo->save($album);
         }
+
+        $importRepo->markAllAlbumsAsImported();
 
         return redirect('/dashboard');
     }

@@ -47,5 +47,10 @@ class GoogleServiceProvider extends ServiceProvider
         $this->app->singleton(\Google_Service_Drive::class, function ($app) {
             return new Google_Service_Drive($app[\Google_Client::class]);
         });
+
+        $this->app->bind(
+            \ConorSmith\Music\Remote\ImportRepository::class,
+            \ConorSmith\Music\Persistence\AlbumDbRepository::class
+        );
     }
 }

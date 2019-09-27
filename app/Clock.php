@@ -12,4 +12,9 @@ class Clock
             ? new Carbon("today", "Europe/Dublin")
             : new Carbon("last Monday", "Europe/Dublin");
     }
+
+    public function now()
+    {
+        return Carbon::now("Europe/Dublin");
+    }
 }
