@@ -33,6 +33,10 @@ class AdminController extends Controller
             'albums' => $import->getAlbums(),
         ]);
 
+        foreach ($import->getAlbums() as $album) {
+            $repo->save($album);
+        }
+
         return redirect('/dashboard');
     }
 }

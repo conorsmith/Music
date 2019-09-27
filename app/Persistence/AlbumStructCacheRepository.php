@@ -3,6 +3,7 @@
 namespace ConorSmith\Music\Persistence;
 
 use ConorSmith\Music\Clock;
+use ConorSmith\Music\Model\Album;
 use ConorSmith\Music\Model\AlbumRepository;
 use Illuminate\Cache\Repository;
 
@@ -27,9 +28,24 @@ class AlbumStructCacheRepository implements AlbumRepository
         $this->cache->forever(self::KEY, $albums);
     }
 
+    public function save(Album $album)
+    {
+        $this->cache->forever($album->getId(), [
+            'id'          => $album->getId()->__toString(),
+            'title'       => $album->getTitle()->__toString(),
+            'artist'      => [
+                'id'   => $album->getArtist()->getId()->__toString(),
+                'name' => $album->getArtist()->getName()->__toString(),
+            ],
+            'releaseDate' => $album->getReleaseDate()->getValue(),
+            'listenedAt'  => $album->getListenedAt()->getDate()->format("Y-m-d"),
+            'rating'      => $album->getRating()->getValue(),
+        ]);
+    }
+
     public function destroy()
     {
-        $this->cache->forget(self::KEY);
+        $this->cache->flush();
     }
 
     public function allByFirstListenTime()
