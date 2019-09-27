@@ -20,7 +20,7 @@ use ConorSmith\Music\Model\ReleaseDate;
 use Illuminate\Cache\Repository;
 use Rhumsaa\Uuid\Uuid;
 
-class AlbumStructCacheRepository implements AlbumRepository, DiscographyRepository
+class AlbumCacheRepository implements AlbumRepository, DiscographyRepository
 {
     private const ALBUM_INDEX_KEY = 'album_index';
 
@@ -112,7 +112,7 @@ class AlbumStructCacheRepository implements AlbumRepository, DiscographyReposito
 
     public function allByArtistName()
     {
-        $albumIndex = $this->cache->get(AlbumStructCacheRepository::ALBUM_INDEX_KEY);
+        $albumIndex = $this->cache->get(AlbumCacheRepository::ALBUM_INDEX_KEY);
 
         if (!is_array($albumIndex)) {
             return [];
