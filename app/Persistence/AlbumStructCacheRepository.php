@@ -20,8 +20,6 @@ use Rhumsaa\Uuid\Uuid;
 
 class AlbumStructCacheRepository implements AlbumRepository
 {
-    public const ALL_DATA_KEY = 'data';
-
     public const ALBUM_INDEX_KEY = 'album_index';
 
     /** @var Repository */
@@ -34,11 +32,6 @@ class AlbumStructCacheRepository implements AlbumRepository
     {
         $this->cache = $cache;
         $this->clock = $clock;
-    }
-
-    public function saveAll(array $albums)
-    {
-        $this->cache->forever(self::ALL_DATA_KEY, $albums);
     }
 
     public function save(Album $album)

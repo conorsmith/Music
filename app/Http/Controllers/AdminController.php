@@ -28,11 +28,6 @@ class AdminController extends Controller
 
         $import = $drive->requestAlbums();
 
-        $repo->saveAll([
-            'artists' => $import->getArtists(),
-            'albums' => $import->getAlbums(),
-        ]);
-
         foreach ($import->getAlbums() as $album) {
             $repo->save($album);
         }
