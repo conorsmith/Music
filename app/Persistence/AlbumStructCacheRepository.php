@@ -22,7 +22,7 @@ class AlbumStructCacheRepository implements AlbumRepository
 {
     public const ALL_DATA_KEY = 'data';
 
-    private const ALBUM_INDEX_KEY = 'album_index';
+    public const ALBUM_INDEX_KEY = 'album_index';
 
     /** @var Repository */
     private $cache;
