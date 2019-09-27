@@ -2,10 +2,21 @@
 
 namespace ConorSmith\Music\Persistence;
 
+use Carbon\Carbon;
 use ConorSmith\Music\Clock;
 use ConorSmith\Music\Model\Album;
+use ConorSmith\Music\Model\AlbumId;
 use ConorSmith\Music\Model\AlbumRepository;
+use ConorSmith\Music\Model\AlbumTitle;
+use ConorSmith\Music\Model\Artist;
+use ConorSmith\Music\Model\ArtistId;
+use ConorSmith\Music\Model\ArtistName;
+use ConorSmith\Music\Model\FirstListenTime;
+use ConorSmith\Music\Model\NullReleaseDate;
+use ConorSmith\Music\Model\Rating;
+use ConorSmith\Music\Model\ReleaseDate;
 use Illuminate\Cache\Repository;
+use Rhumsaa\Uuid\Uuid;
 
 class AlbumStructCacheRepository implements AlbumRepository
 {
@@ -73,15 +84,36 @@ class AlbumStructCacheRepository implements AlbumRepository
 
     public function findForThisWeek()
     {
-        if (!$this->cache->has(self::ALL_DATA_KEY)) {
+        $albumIndex = $this->cache->get(self::ALBUM_INDEX_KEY);
+
+        if (!is_array($albumIndex)) {
             return [];
         }
 
-        return collect($this->cache->get(self::ALL_DATA_KEY)['albums'])
-            ->filter(function ($album) {
-                return $album->getListenedAt()->isFromListeningPeriod($this->clock->mondayThisWeek());
-            })
-            ->values()
-            ->toArray();
+        $albums = [];
+
+        foreach ($albumIndex as $albumId) {
+            $albumData = $this->cache->get($albumId);
+
+            $album = new Album(
+                new AlbumId(Uuid::fromString($albumId)),
+                AlbumTitle::fromString($albumData['title']),
+                new Artist(
+                    new ArtistId(Uuid::fromString($albumData['artist']['id'])),
+                    ArtistName::fromString($albumData['artist']['name'])
+                ),
+                is_null($albumData['releaseDate'])
+                    ? NullReleaseDate::create()
+                    : new ReleaseDate($albumData['releaseDate']),
+                new FirstListenTime(Carbon::createFromFormat("Y-m-d", $albumData['listenedAt'])),
+                new Rating($albumData['rating'])
+            );
+
+            if ($album->getListenedAt()->isFromListeningPeriod($this->clock->mondayThisWeek())) {
+                $albums[] = $album;
+            }
+        }
+
+        return $albums;
     }
 }

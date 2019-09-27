@@ -19,7 +19,7 @@ trait IsIdentifier
     /**
      * @param Uuid $uuid
      */
-    private function __construct(Uuid $uuid)
+    public function __construct(Uuid $uuid)
     {
         $this->uuid = $uuid;
     }
