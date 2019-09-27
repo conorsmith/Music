@@ -11,6 +11,8 @@ class AlbumStructCacheRepository implements AlbumRepository
 {
     public const ALL_DATA_KEY = 'data';
 
+    private const ALBUM_INDEX_KEY = 'album_index';
+
     /** @var Repository */
     private $cache;
 
@@ -30,6 +32,16 @@ class AlbumStructCacheRepository implements AlbumRepository
 
     public function save(Album $album)
     {
+        $albumIndex = $this->cache->get(self::ALBUM_INDEX_KEY);
+
+        if (!is_array($albumIndex)) {
+            $albumIndex = [];
+        }
+
+        $albumIndex[] = $album->getId()->__toString();
+
+        $this->cache->forever(self::ALBUM_INDEX_KEY, $albumIndex);
+
         $this->cache->forever($album->getId(), [
             'id'          => $album->getId()->__toString(),
             'title'       => $album->getTitle()->__toString(),
