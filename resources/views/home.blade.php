@@ -32,12 +32,16 @@
         <table class="table" style="font-size: 18px; font-weight: bold; text-align: center;">
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/6XIKbhQPEngjIoqZbEjO8R?si=suS4H4y2RM2_jybA_zIUzg" style="display: block;" target="_blank">Why Not?</a></td></tr>
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/5bwC6oS06VV5NfjWUHgMwj?si=TENNmuaLQ6aDSLsd35EfoQ" style="display: block;" target="_blank">Obviously</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/playlist/0p5Nxy5t3NjdDfAnT3ClPC?si=1tLecLXOSS-OZLP_8mRhSg" style="display: block;" target="_blank">One a Piece</a></td></tr>
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/77W1COwhHoyqK8vv94L70Z?si=hnDPgRniSuWw314tmDq4ng" style="display: block;" target="_blank">Great TV Tracks</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/playlist/6J4uGiaOYwCwRFXPl8m6Yn?si=BAXrID5rQvuhj9PTFOUbrQ" style="display: block;" target="_blank">1 2 3</a></td></tr>
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/0lTaHurEjAOela1j0wkKtw?si=F0pRreQSQtGATfSR1RGt8w" style="display: block;" target="_blank">30</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/playlist/46shsYJgPTzY1ar1sl1hjf?si=dWF5i4CCTTeYv5ogZ6m0IA" style="display: block;" target="_blank">Top 2019 Tracks</a></td></tr>
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/3TuFrgRGVW0cuvq8E04brL?si=MCdc39_TQpm1xzByKHFVXQ" style="display: block;" target="_blank">Top 2018 Tracks</a></td></tr>
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/2n61FUNrYRBcfWC9Ui5XJh?si=YT7juBepTb2QUtgJxHtqfg" style="display: block;" target="_blank">Top 2017 Tracks</a></td></tr>
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/5KnYIXuFpgVyC3k1KD5XUc?si=immeBkstSVO8i4gDwEkTlQ" style="display: block;" target="_blank">Top 2016 Tracks</a></td></tr>
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/4bMwkdOFKI8Fi1He4Itvc4?si=2hBgYyjgQQ2Lu9kieo7grA" style="display: block;" target="_blank">Finds of 2016</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/playlist/1E8xeHZO5UL9v8Mma12Tpd?si=jLL-CDY0SGiJiY8aYVThFA" style="display: block;" target="_blank">Summer 2005</a></td></tr>
         </table>
       </div>
     </div>
