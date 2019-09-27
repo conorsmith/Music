@@ -9,7 +9,7 @@ use Illuminate\Cache\Repository;
 
 class AlbumStructCacheRepository implements AlbumRepository
 {
-    const KEY = 'data';
+    public const ALL_DATA_KEY = 'data';
 
     /** @var Repository */
     private $cache;
@@ -25,7 +25,7 @@ class AlbumStructCacheRepository implements AlbumRepository
 
     public function saveAll(array $albums)
     {
-        $this->cache->forever(self::KEY, $albums);
+        $this->cache->forever(self::ALL_DATA_KEY, $albums);
     }
 
     public function save(Album $album)
@@ -50,22 +50,22 @@ class AlbumStructCacheRepository implements AlbumRepository
 
     public function allByFirstListenTime()
     {
-        if (!$this->cache->has(self::KEY)) {
+        if (!$this->cache->has(self::ALL_DATA_KEY)) {
             return [];
         }
 
-        return collect($this->cache->get(self::KEY)['albums'])
+        return collect($this->cache->get(self::ALL_DATA_KEY)['albums'])
             ->reverse()
             ->toArray();
     }
 
     public function findForThisWeek()
     {
-        if (!$this->cache->has(self::KEY)) {
+        if (!$this->cache->has(self::ALL_DATA_KEY)) {
             return [];
         }
 
-        return collect($this->cache->get(self::KEY)['albums'])
+        return collect($this->cache->get(self::ALL_DATA_KEY)['albums'])
             ->filter(function ($album) {
                 return $album->getListenedAt()->isFromListeningPeriod($this->clock->mondayThisWeek());
             })

@@ -17,11 +17,11 @@ class DiscographyAlbumStructCacheRepository implements DiscographyRepository
 
     public function allByArtistName()
     {
-        if (!$this->cache->has(AlbumStructCacheRepository::KEY)) {
+        if (!$this->cache->has(AlbumStructCacheRepository::ALL_DATA_KEY)) {
             return [];
         }
 
-        return collect($this->cache->get(AlbumStructCacheRepository::KEY)['artists'])
+        return collect($this->cache->get(AlbumStructCacheRepository::ALL_DATA_KEY)['artists'])
             ->sort(function ($a, $b) {
                 return strcasecmp(
                     $a[0]->getArtist()->getName(),
