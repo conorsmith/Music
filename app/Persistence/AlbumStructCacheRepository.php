@@ -73,13 +73,23 @@ class AlbumStructCacheRepository implements AlbumRepository
 
     public function allByFirstListenTime()
     {
-        if (!$this->cache->has(self::ALL_DATA_KEY)) {
+        $albumIndex = $this->cache->get(self::ALBUM_INDEX_KEY);
+
+        if (!is_array($albumIndex)) {
             return [];
         }
 
-        return collect($this->cache->get(self::ALL_DATA_KEY)['albums'])
-            ->reverse()
-            ->toArray();
+        $albums = [];
+
+        foreach ($albumIndex as $albumId) {
+            $album = $this->reconstituteAlbum(
+                $this->cache->get($albumId)
+            );
+
+            $albums[] = $album;
+        }
+
+        return array_reverse($albums);
     }
 
     public function findForThisWeek()
@@ -93,20 +103,8 @@ class AlbumStructCacheRepository implements AlbumRepository
         $albums = [];
 
         foreach ($albumIndex as $albumId) {
-            $albumData = $this->cache->get($albumId);
-
-            $album = new Album(
-                new AlbumId(Uuid::fromString($albumId)),
-                AlbumTitle::fromString($albumData['title']),
-                new Artist(
-                    new ArtistId(Uuid::fromString($albumData['artist']['id'])),
-                    ArtistName::fromString($albumData['artist']['name'])
-                ),
-                is_null($albumData['releaseDate'])
-                    ? NullReleaseDate::create()
-                    : new ReleaseDate($albumData['releaseDate']),
-                new FirstListenTime(Carbon::createFromFormat("Y-m-d", $albumData['listenedAt'])),
-                new Rating($albumData['rating'])
+            $album = $this->reconstituteAlbum(
+                $this->cache->get($albumId)
             );
 
             if ($album->getListenedAt()->isFromListeningPeriod($this->clock->mondayThisWeek())) {
@@ -115,5 +113,22 @@ class AlbumStructCacheRepository implements AlbumRepository
         }
 
         return $albums;
+    }
+
+    private function reconstituteAlbum(array $albumData): Album
+    {
+        return new Album(
+            new AlbumId(Uuid::fromString($albumData['id'])),
+            AlbumTitle::fromString($albumData['title']),
+            new Artist(
+                new ArtistId(Uuid::fromString($albumData['artist']['id'])),
+                ArtistName::fromString($albumData['artist']['name'])
+            ),
+            is_null($albumData['releaseDate'])
+                ? NullReleaseDate::create()
+                : new ReleaseDate($albumData['releaseDate']),
+            new FirstListenTime(Carbon::createFromFormat("Y-m-d", $albumData['listenedAt'])),
+            new Rating($albumData['rating'])
+        );
     }
 }
