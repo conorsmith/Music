@@ -28,7 +28,7 @@ class AdminController extends Controller
 
         $import = $drive->requestAlbums();
 
-        $repo->save([
+        $repo->saveAll([
             'artists' => $import->getArtists(),
             'albums' => $import->getAlbums(),
         ]);

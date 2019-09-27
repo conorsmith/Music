@@ -22,7 +22,7 @@ class AlbumStructCacheRepository implements AlbumRepository
         $this->clock = $clock;
     }
 
-    public function save(array $albums)
+    public function saveAll(array $albums)
     {
         $this->cache->forever(self::KEY, $albums);
     }
