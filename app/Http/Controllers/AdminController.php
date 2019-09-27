@@ -8,17 +8,26 @@ use ConorSmith\Music\Remote\GoogleDrive;
 
 class AdminController extends Controller
 {
-    public function __construct()
+    /** @var AlbumRepository */
+    private $albumRepo;
+
+    /** @var DiscographyRepository */
+    private $discographyRepo;
+
+    public function __construct(AlbumRepository $albumRepo, DiscographyRepository $discographyRepo)
     {
+        $this->albumRepo = $albumRepo;
+        $this->discographyRepo = $discographyRepo;
+
         $this->middleware('auth');
     }
 
-    public function dashboard(AlbumRepository $albumRepo, DiscographyRepository $discographyRepo)
+    public function dashboard()
     {
         return view('dashboard', [
             'hasAccessToken' => \Session::has('google.access_token'),
-            'albumCount' => count($albumRepo->allByFirstListenTime()),
-            'artistCount' => count($discographyRepo->allByArtistName()),
+            'albumCount' => count($this->albumRepo->allByFirstListenTime()),
+            'artistCount' => count($this->discographyRepo->allByArtistName()),
         ]);
     }
 
