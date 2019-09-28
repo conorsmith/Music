@@ -95,12 +95,6 @@ class AlbumDbRepository implements AlbumRepository, DiscographyRepository, Impor
         $this->db->delete("DELETE FROM albums WHERE was_imported_from_google_sheets = 1");
     }
 
-    public function destroy()
-    {
-        $this->db->delete("DELETE FROM artists");
-        $this->db->delete("DELETE FROM albums");
-    }
-
     public function allByFirstListenTime()
     {
         $rows = $this->db->select(
