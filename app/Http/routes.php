@@ -16,8 +16,8 @@ Route::get('artists', [
 ]);
 
 Route::group(['middleware' => "auth"], function () {
-    Route::get('dashboard', 'AdminController@dashboard');
-    Route::post('update', 'AdminController@update');
+    Route::get('dashboard', "Admin\ShowDashboard@__invoke");
+    Route::post('update', "Admin\ImportFromGoogleSheets@__invoke");
 
     Route::post('auth/trigger', [
         'as' => 'auth.trigger',

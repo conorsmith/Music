@@ -1,19 +1,17 @@
 <?php
 
-namespace ConorSmith\Music\Http\Controllers;
+namespace ConorSmith\Music\Http\Controllers\Admin;
 
+use ConorSmith\Music\Http\Controllers\Controller;
 use ConorSmith\Music\Model\AlbumRepository;
 use ConorSmith\Music\Model\DiscographyRepository;
 use ConorSmith\Music\Remote\GoogleDrive;
 use ConorSmith\Music\Remote\ImportRepository;
 
-class AdminController extends Controller
+class ImportFromGoogleSheets extends Controller
 {
     /** @var AlbumRepository */
     private $albumRepo;
-
-    /** @var DiscographyRepository */
-    private $discographyRepo;
 
     /** @var ImportRepository */
     private $importRepo;
@@ -28,21 +26,11 @@ class AdminController extends Controller
         GoogleDrive $googleDrive
     ) {
         $this->albumRepo = $albumRepo;
-        $this->discographyRepo = $discographyRepo;
         $this->importRepo = $importRepo;
         $this->googleDrive = $googleDrive;
     }
 
-    public function dashboard()
-    {
-        return view('dashboard', [
-            'hasAccessToken' => \Session::has('google.access_token'),
-            'albumCount' => count($this->albumRepo->allByFirstListenTime()),
-            'artistCount' => count($this->discographyRepo->allByArtistName()),
-        ]);
-    }
-
-    public function update()
+    public function __invoke()
     {
         $this->importRepo->deleteAllImportedAlbums();
 
