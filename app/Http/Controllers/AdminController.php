@@ -15,10 +15,22 @@ class AdminController extends Controller
     /** @var DiscographyRepository */
     private $discographyRepo;
 
-    public function __construct(AlbumRepository $albumRepo, DiscographyRepository $discographyRepo)
-    {
+    /** @var ImportRepository */
+    private $importRepo;
+
+    /** @var GoogleDrive */
+    private $googleDrive;
+
+    public function __construct(
+        AlbumRepository $albumRepo,
+        DiscographyRepository $discographyRepo,
+        ImportRepository $importRepo,
+        GoogleDrive $googleDrive
+    ) {
         $this->albumRepo = $albumRepo;
         $this->discographyRepo = $discographyRepo;
+        $this->importRepo = $importRepo;
+        $this->googleDrive = $googleDrive;
     }
 
     public function dashboard()
@@ -30,17 +42,17 @@ class AdminController extends Controller
         ]);
     }
 
-    public function update(ImportRepository $importRepo, GoogleDrive $drive)
+    public function update()
     {
-        $importRepo->deleteAllImportedAlbums();
+        $this->importRepo->deleteAllImportedAlbums();
 
-        $import = $drive->requestAlbums();
+        $import = $this->googleDrive->requestAlbums();
 
         foreach ($import->getAlbums() as $album) {
             $this->albumRepo->save($album);
         }
 
-        $importRepo->markAllAlbumsAsImported();
+        $this->importRepo->markAllAlbumsAsImported();
 
         return redirect('/dashboard');
     }

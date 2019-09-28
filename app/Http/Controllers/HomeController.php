@@ -10,18 +10,30 @@ use ConorSmith\Music\Model\DiscographyRepository;
 
 class HomeController extends Controller
 {
-    public function home(AlbumRepository $albumRepo)
+    /** @var AlbumRepository */
+    private $albumRepo;
+
+    /** @var DiscographyRepository */
+    private $discographyRepo;
+
+    public function __construct(AlbumRepository $albumRepo, DiscographyRepository $discographyRepo)
     {
-        $albums = $albumRepo->findForThisWeek();
+        $this->albumRepo = $albumRepo;
+        $this->discographyRepo = $discographyRepo;
+    }
+
+    public function home()
+    {
+        $albums = $this->albumRepo->findForThisWeek();
 
         return view('home', [
             'albums' => $this->transformAlbums($albums),
         ]);
     }
 
-    public function albums(AlbumRepository $albumRepo)
+    public function albums()
     {
-        $albums = $albumRepo->allByFirstListenTime();
+        $albums = $this->albumRepo->allByFirstListenTime();
 
         return view('albums', [
             'thisWeek' => Carbon::now("Europe/Dublin")->dayOfWeek === Carbon::MONDAY
@@ -31,9 +43,9 @@ class HomeController extends Controller
         ]);
     }
 
-    public function artists(DiscographyRepository $discographyRepo)
+    public function artists()
     {
-        $discographies = $discographyRepo->allByArtistName();
+        $discographies = $this->discographyRepo->allByArtistName();
 
         return view('artists', [
             'artists' => collect($discographies)
