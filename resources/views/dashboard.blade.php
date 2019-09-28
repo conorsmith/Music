@@ -38,6 +38,19 @@
         <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    <h3 class="panel-title">Statistics</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" style="padding-top: 10px; padding-bottom: 10px;">
+                        <span class="badge">{{ $albumCount }}</span> Albums
+                    </li>
+                    <li class="list-group-item" style="padding-top: 10px; padding-bottom: 10px;">
+                        <span class="badge">{{ $artistCount }}</span> Artists
+                    </li>
+                </ul>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
                     <h3 class="panel-title">Import Albums from Google Sheets</h3>
                 </div>
                 <div class="panel-body">
@@ -50,7 +63,7 @@
                             </button>
                         </form>
                     @else
-                        <div class="alert alert-warning">
+                        <div class="alert alert-warning" style="margin-bottom: 0;">
                             There is currently no Access Token cached.
                             <form method="post" action="{{ route('auth.trigger') }}">
                                 {!! csrf_field() !!}
@@ -62,18 +75,6 @@
                     @endif
 
                 </div>
-                <ul class="list-group">
-                    <p>
-                      <a href="{{ route('albums') }}" class="list-group-item">
-                          <span class="badge">{{ $albumCount }}</span> Albums
-                      </a>
-                    </p>
-                    <p>
-                      <a href="{{ route('artists') }}" class="list-group-item">
-                          <span class="badge">{{ $artistCount }}</span> Artists
-                      </a>
-                    </p>
-                </ul>
             </div>
         </div>
     </div>
