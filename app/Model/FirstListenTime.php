@@ -23,7 +23,7 @@ class FirstListenTime
     /**
      * @param Carbon $date
      */
-    private function __construct(Carbon $date)
+    public function __construct(Carbon $date)
     {
         $this->date = $date;
     }

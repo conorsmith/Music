@@ -21,7 +21,7 @@ class ReleaseDate
     /**
      * @param int $year
      */
-    private function __construct($year)
+    public function __construct($year)
     {
         if ($year < 1900) {
             throw new \DomainException(

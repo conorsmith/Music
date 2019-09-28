@@ -58,7 +58,7 @@ class Album
      * @param FirstListenTime $listenedAt
      * @param Rating          $rating
      */
-    private function __construct(
+    public function __construct(
         AlbumId $id,
         AlbumTitle $title,
         Artist $artist,

@@ -30,7 +30,7 @@ class Artist
      * @param ArtistId   $id
      * @param ArtistName $name
      */
-    private function __construct(ArtistId $id, ArtistName $name)
+    public function __construct(ArtistId $id, ArtistName $name)
     {
         $this->id = $id;
         $this->name = $name;
