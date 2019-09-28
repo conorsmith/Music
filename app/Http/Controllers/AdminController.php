@@ -19,8 +19,6 @@ class AdminController extends Controller
     {
         $this->albumRepo = $albumRepo;
         $this->discographyRepo = $discographyRepo;
-
-        $this->middleware('auth');
     }
 
     public function dashboard()
