@@ -118,5 +118,10 @@ class Album
     {
         return $this->rating;
     }
+
+    public function rate(Rating $rating): void
+    {
+        $this->rating = $rating;
+    }
 }
  

@@ -10,6 +10,7 @@ final class Album
     public static function present(DomainModel $album): self
     {
         $variable = new self;
+        $variable->id = strval($album->getId());
         $variable->title = strval($album->getTitle());
         $variable->artist = strval($album->getArtist()->getName());
         $variable->listenedAt = $album->getListenedAt()->getDate()->format('d/m/Y');
@@ -19,6 +20,7 @@ final class Album
         return $variable;
     }
 
+    public $id;
     public $title;
     public $artist;
     public $listenedAt;

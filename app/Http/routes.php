@@ -17,6 +17,7 @@ Route::get('artists', [
 
 Route::group(['middleware' => "auth"], function () {
     Route::get('dashboard', "Admin\ShowDashboard@__invoke");
+    Route::post('album/{id}/rating', "Admin\CreateAlbumRating@__invoke");
     Route::post('update', "Admin\ImportFromGoogleSheets@__invoke");
 
     Route::post('auth/trigger', [

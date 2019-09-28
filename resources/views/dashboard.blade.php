@@ -2,10 +2,43 @@
 
 @section('content')
     <div class="row">
-        <div class="col-sm-offset-4 col-sm-4">
+        <div class="col-sm-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Music Dashboard</h3>
+                    <h3 class="panel-title">This Week's Albums</h3>
+                </div>
+                <table class="table">
+                    @foreach($thisWeeksAlbums as $album)
+                        <tr>
+                            <td>{{ $album->artist }}</td>
+                            <td>{{ $album->title }}</td>
+                            <td style="text-align: right;">
+                                @if($album->rating)
+                                    @for($i = 1; $i <= 5; $i++)
+                                        @if($i * 2 <= $album->rating)
+                                            <i class="mdi-toggle-star"></i>
+                                        @elseif(($i * 2) - 1 == $album->rating)
+                                            <i class="mdi-toggle-star-half"></i>
+                                        @else
+                                            <i class="mdi-toggle-star-outline"></i>
+                                        @endif
+                                    @endfor
+                                @else
+                                    <form class="form-inline" method="POST" action="/album/{{ $album->id }}/rating">
+                                        {{ csrf_field() }}
+                                        <input type="number" min="0" max="10" name="rating" class="form-control">
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Import Albums from Google Sheets</h3>
                 </div>
                 <div class="panel-body">
 
@@ -13,7 +46,7 @@
                         <form method="post" action="/update">
                             {!! csrf_field() !!}
                             <button type="submit" class="btn btn-default btn-block btn-raised">
-                                Update Cached Albums
+                                Import
                             </button>
                         </form>
                     @else

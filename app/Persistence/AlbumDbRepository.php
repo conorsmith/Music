@@ -35,6 +35,26 @@ class AlbumDbRepository implements AlbumRepository, DiscographyRepository, Impor
         $this->clock = $clock;
     }
 
+    public function find(AlbumId $id): ?Album
+    {
+        $row = $this->db->selectOne(
+            "
+                SELECT albums.*, artists.name AS artist_name
+                FROM albums JOIN artists ON albums.artist_id = artists.id
+                WHERE albums.id = ?
+            ",
+            [
+                $id->__toString(),
+            ]
+        );
+
+        if (is_null($row)) {
+            return null;
+        }
+
+        return $this->createAlbumFromRow($row);
+    }
+
     public function save(Album $album)
     {
         $this->db->transaction(function () use ($album) {
@@ -72,6 +92,30 @@ class AlbumDbRepository implements AlbumRepository, DiscographyRepository, Impor
         });
     }
 
+    public function update(Album $album): void
+    {
+        $this->db->update(
+            "
+                UPDATE albums
+                SET title = ?,
+                    artist_id = ?,
+                    release_date = ?,
+                    listened_at = ?,
+                    rating = ?,
+                    was_imported_from_google_sheets = 0
+                WHERE id = ?
+            ",
+            [
+                $album->getTitle()->__toString(),
+                $album->getArtist()->getId()->__toString(),
+                $album->getReleaseDate()->getValue(),
+                $album->getListenedAt()->getDate()->format("Y-m-d"),
+                $album->getRating()->getValue(),
+                $album->getId()->__toString(),
+            ]
+        );
+    }
+
     public function markAllAlbumsAsImported(): void
     {
         $this->db->update(
@@ -101,7 +145,8 @@ class AlbumDbRepository implements AlbumRepository, DiscographyRepository, Impor
             "
                 SELECT albums.*, artists.name AS artist_name
                 FROM albums JOIN artists ON albums.artist_id = artists.id
-                ORDER BY albums.listened_at DESC
+                ORDER BY albums.listened_at DESC,
+                    artists.name ASC
             "
         );
 
