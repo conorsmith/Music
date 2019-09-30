@@ -117,7 +117,7 @@ class AlbumDbRepository implements AlbumRepository, ArtistRepository, Discograph
         );
     }
 
-    public function findByName(string $name): ?Artist
+    public function findByName(ArtistName $name): ?Artist
     {
         $row = $this->db->selectOne("SELECT * FROM artists WHERE name = ?", [$name]);
 

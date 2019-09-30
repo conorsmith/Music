@@ -42,7 +42,9 @@ class CreateWeeksAlbums extends Controller
 
         /** @var \ConorSmith\Music\Http\Requests\Album $albumPayload */
         foreach ($requestPayload->getAlbums() as $albumPayload) {
-            $artist = $this->artistRepo->findByName($albumPayload->getArtistName());
+            $artist = $this->artistRepo->findByName(
+                ArtistName::fromString($albumPayload->getArtistName())
+            );
 
             if (is_null($artist)) {
                 $artist = new Artist(

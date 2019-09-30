@@ -4,5 +4,5 @@ namespace ConorSmith\Music\Model;
 
 interface ArtistRepository
 {
-    public function findByName(string $name): ?Artist;
+    public function findByName(ArtistName $name): ?Artist;
 }

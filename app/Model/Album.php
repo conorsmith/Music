@@ -123,5 +123,25 @@ class Album
     {
         $this->rating = $rating;
     }
+
+    public function setArtist(Artist $artist): void
+    {
+        $this->artist = $artist;
+    }
+
+    public function setTitle(AlbumTitle $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function setReleaseDate(ReleaseDate $releaseDate): void
+    {
+        $this->releaseDate = $releaseDate;
+    }
+
+    public function setListenedAt(FirstListenTime $firstListenTime): void
+    {
+        $this->listenedAt = $firstListenTime;
+    }
 }
  
