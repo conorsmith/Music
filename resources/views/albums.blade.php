@@ -14,17 +14,17 @@
             </tr>
         </thead>
         @foreach ($albums as $album)
-            <tr class="{{ $album['listened_at'] === $thisWeek->format('d/m/Y') ? 'info' : '' }}">
-                <td>{{ $album['listened_at'] }}</td>
-                <td><a href="/artists/#{{ $album['artist'] }}">{{ $album['artist'] }}</a></td>
-                <td>{{ $album['title'] }}</td>
-                <td>{{ $album['year'] ?: "&ndash;" }}</td>
+            <tr class="{{ $album->listenedAt === $thisWeek->format('d/m/Y') ? 'info' : '' }}">
+                <td>{{ $album->listenedAt }}</td>
+                <td><a href="/artists/#{{ $album->artist }}">{{ $album->artist }}</a></td>
+                <td>{{ $album->title }}</td>
+                <td>{{ $album->year ?: "&ndash;" }}</td>
                 <td style="width: 160px;">
-                    @if($album['rating'])
+                    @if($album->rating)
                         @for($i = 1; $i <= 5; $i++)
-                            @if($i * 2 <= $album['rating'])
+                            @if($i * 2 <= $album->rating)
                                 <i class="mdi-toggle-star"></i>
-                            @elseif(($i * 2) - 1 == $album['rating'])
+                            @elseif(($i * 2) - 1 == $album->rating)
                                 <i class="mdi-toggle-star-half"></i>
                             @else
                                 <i class="mdi-toggle-star-outline"></i>

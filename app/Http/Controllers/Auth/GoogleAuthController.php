@@ -11,8 +11,6 @@ class GoogleAuthController extends Controller
     public function __construct(\Google_Client $client)
     {
         $this->client = $client;
-
-        $this->middleware('auth', ['except' => 'callback']);
     }
 
     public function trigger()

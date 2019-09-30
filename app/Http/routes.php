@@ -15,18 +15,26 @@ Route::get('artists', [
     'uses' => 'HomeController@artists',
 ]);
 
-Route::get('dashboard', 'AdminController@dashboard');
+Route::group(['middleware' => "auth"], function () {
+    Route::get('dashboard', "Admin\ShowDashboard@__invoke");
+    Route::get('weeks-albums/new', "Admin\ShowNewWeeksAlbumsForm@__invoke");
 
-Route::post('update', 'AdminController@update');
+    Route::post('weeks-albums', "Admin\CreateWeeksAlbums@__invoke");
+    Route::post('album/{id}/rating', "Admin\CreateAlbumRating@__invoke");
+    Route::post('update', "Admin\ImportFromGoogleSheets@__invoke");
 
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('auth/login', 'Auth\AuthController@postLogin');
+    Route::post('auth/trigger', [
+        'as' => 'auth.trigger',
+        'uses' => 'Auth\GoogleAuthController@trigger',
+    ]);
+});
+
+Route::group(['middleware' => "guest"], function () {
+    Route::get('auth/login', 'Auth\AuthController@getLogin');
+    Route::post('auth/login', 'Auth\AuthController@postLogin');
+});
+
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
-
-Route::post('auth/trigger', [
-    'as' => 'auth.trigger',
-    'uses' => 'Auth\GoogleAuthController@trigger',
-]);
 
 Route::get('auth/callback', [
     'as' => 'auth.callback',

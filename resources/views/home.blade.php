@@ -12,9 +12,9 @@
             <div class="col-md-2 {{ $i === 0 && count($albums) < 6 ? 'col-md-offset-' . (6 - count($albums)) : '' }}"
                 style="text-align: center;">
               <img src="https://coverartarchive.org/release/54c917b3-5955-4b2a-b1b7-b129d126eeff/8121540978-250.jpg" style="width: 150px; height: 150px;">
-              <h4 style="margin-bottom: 6px;">{{ $album['title'] }}</h4>
-              <p style="margin-bottom: 3px;"><strong>{{ $album['artist'] }}</strong></p>
-              <p><em>{{ $album['year'] }}</em></p>
+              <h4 style="margin-bottom: 6px;">{{ $album->title }}</h4>
+              <p style="margin-bottom: 3px;"><strong>{{ $album->artist }}</strong></p>
+              <p><em>{{ $album->year }}</em></p>
             </div>
           @endforeach
         @else
