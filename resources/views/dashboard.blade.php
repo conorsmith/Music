@@ -16,11 +16,11 @@
                                 @if($album->rating)
                                     @for($i = 1; $i <= 5; $i++)
                                         @if($i * 2 <= $album->rating)
-                                            <i class="mdi-toggle-star"></i>
+                                            <i class="fas fa-star"></i>
                                         @elseif(($i * 2) - 1 == $album->rating)
-                                            <i class="mdi-toggle-star-half"></i>
+                                            <i class="fas fa-star-half-alt"></i>
                                         @else
-                                            <i class="mdi-toggle-star-outline"></i>
+                                            <i class="far fa-star"></i>
                                         @endif
                                     @endfor
                                 @else
