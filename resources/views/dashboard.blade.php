@@ -34,6 +34,16 @@
                     @endforeach
                 </table>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Next Week's Albums</h3>
+                </div>
+                <div class="panel-body">
+                    <div style="width: 40%; margin: 0 auto;">
+                        <a href="/weeks-albums/new" class="btn btn-primary btn-block">Add Next Week's Albums</a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-sm-4">
             <div class="panel panel-default">

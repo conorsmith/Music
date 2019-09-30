@@ -11,6 +11,7 @@ use ConorSmith\Music\Model\AlbumTitle;
 use ConorSmith\Music\Model\Artist;
 use ConorSmith\Music\Model\ArtistId;
 use ConorSmith\Music\Model\ArtistName;
+use ConorSmith\Music\Model\ArtistRepository;
 use ConorSmith\Music\Model\Discography;
 use ConorSmith\Music\Model\DiscographyRepository;
 use ConorSmith\Music\Model\FirstListenTime;
@@ -21,7 +22,7 @@ use ConorSmith\Music\Remote\ImportRepository;
 use Illuminate\Database\Connection;
 use Rhumsaa\Uuid\Uuid;
 
-class AlbumDbRepository implements AlbumRepository, DiscographyRepository, ImportRepository
+class AlbumDbRepository implements AlbumRepository, ArtistRepository, DiscographyRepository, ImportRepository
 {
     /** @var Connection */
     private $db;
@@ -113,6 +114,20 @@ class AlbumDbRepository implements AlbumRepository, DiscographyRepository, Impor
                 $album->getRating()->getValue(),
                 $album->getId()->__toString(),
             ]
+        );
+    }
+
+    public function findByName(string $name): ?Artist
+    {
+        $row = $this->db->selectOne("SELECT * FROM artists WHERE name = ?", [$name]);
+
+        if (is_null($row)) {
+            return null;
+        }
+
+        return new Artist(
+            new ArtistId(Uuid::fromString($row['id'])),
+            ArtistName::fromString($row['name'])
         );
     }
 
