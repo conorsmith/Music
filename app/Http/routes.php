@@ -18,6 +18,7 @@ Route::get('artists', [
 Route::group(['middleware' => "auth"], function () {
     Route::get('dashboard', "Admin\ShowDashboard@__invoke");
     Route::get('weeks-albums/new', "Admin\ShowNewWeeksAlbumsForm@__invoke");
+    Route::get('admin/albums', "Admin\ListAlbums@__invoke");
 
     Route::post('weeks-albums', "Admin\CreateWeeksAlbums@__invoke");
     Route::post('album/{id}/rating', "Admin\CreateAlbumRating@__invoke");

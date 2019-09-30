@@ -19,6 +19,9 @@
                 <li>
                     <a href="/dashboard">Dashboard</a>
                 </li>
+                <li>
+                    <a href="/admin/albums">Albums</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav pull-right">
                 <li>
