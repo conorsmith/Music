@@ -174,6 +174,58 @@ class AlbumDbRepository implements AlbumRepository, ArtistRepository, Discograph
         return $albums;
     }
 
+    public function search($query)
+    {
+        if (!$query->hasFiltersOrSort()) {
+            return $this->allByFirstListenTime();
+        }
+
+        $bindings = [];
+        $whereStatements = ["1"];
+
+        if (!is_null($query->getFirstListenYear())) {
+            $whereStatements[] = "listened_at >= :listened_at_start AND listened_at <= :listened_at_end";
+            $bindings['listened_at_start'] = "{$query->getFirstListenYear()}-01-01 00:00:00";
+            $bindings['listened_at_end'] = "{$query->getFirstListenYear()}-12-31 23:59:59";
+        }
+
+        if (!is_null($query->getMinimumRating())) {
+            $whereStatements[] = "rating >= :minimum_rating";
+            $bindings['minimum_rating'] = $query->getMinimumRating();
+        }
+
+        if (!is_null($query->getReleaseYear())) {
+            $whereStatements[] = "release_date = :release_year";
+            $bindings['release_year'] = $query->getReleaseYear();
+        }
+
+        if ($query->sortByArtist()) {
+            $sort = "artists.name ASC";
+        } elseif ($query->sortByAlbum()) {
+            $sort = "albums.title ASC";
+        } else {
+            $sort = "albums.listened_at DESC, artists.name ASC";
+        }
+
+        $rows = $this->db->select(
+            "
+            SELECT albums.*, artists.name AS artist_name
+            FROM albums JOIN artists ON albums.artist_id = artists.id
+            WHERE " . implode(" AND ", $whereStatements) . "
+            ORDER BY {$sort}
+        ",
+            $bindings
+        );
+
+        $albums = [];
+
+        foreach ($rows as $row) {
+            $albums[] = $this->createAlbumFromRow($row);
+        }
+
+        return $albums;
+    }
+
     public function findForThisWeek()
     {
         $albums = $this->allByFirstListenTime();

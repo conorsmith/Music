@@ -9,5 +9,6 @@ interface AlbumRepository
     public function update(Album $album): void;
 
     public function allByFirstListenTime();
+    public function search($query);
     public function findForThisWeek();
 }
