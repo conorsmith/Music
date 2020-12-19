@@ -36,6 +36,7 @@
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/77W1COwhHoyqK8vv94L70Z?si=hnDPgRniSuWw314tmDq4ng" style="display: block;" target="_blank">Great TV Tracks</a></td></tr>
           <tr><td><a href="https://open.spotify.com/playlist/6J4uGiaOYwCwRFXPl8m6Yn?si=BAXrID5rQvuhj9PTFOUbrQ" style="display: block;" target="_blank">1 2 3</a></td></tr>
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/0lTaHurEjAOela1j0wkKtw?si=F0pRreQSQtGATfSR1RGt8w" style="display: block;" target="_blank">30</a></td></tr>
+          <tr><td><a href="https://open.spotify.com/playlist/6nZSMsk5lrKxY1rhxOYLJQ?si=u0RuWHhCRgyTRyVAScZblw" style=display: block;" target="_blank">Top 2020 Tracks</a></td></tr>
           <tr><td><a href="https://open.spotify.com/playlist/46shsYJgPTzY1ar1sl1hjf?si=dWF5i4CCTTeYv5ogZ6m0IA" style="display: block;" target="_blank">Top 2019 Tracks</a></td></tr>
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/3TuFrgRGVW0cuvq8E04brL?si=MCdc39_TQpm1xzByKHFVXQ" style="display: block;" target="_blank">Top 2018 Tracks</a></td></tr>
           <tr><td><a href="https://open.spotify.com/user/conorbsmith/playlist/2n61FUNrYRBcfWC9Ui5XJh?si=YT7juBepTb2QUtgJxHtqfg" style="display: block;" target="_blank">Top 2017 Tracks</a></td></tr>
@@ -61,6 +62,8 @@
         <div class="panel-heading">Top Ten Albums</div>
         <div class="panel-body"><p>These are Conor Smith's top ten albums each year for a number of recent years.</p></div>
         <table class="table" style="font-size: 18px; font-weight: bold; text-align: center;">
+          <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2020" style="display: block;">2020</a></td></tr>
+          <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2019" style="display: block;">2019</a></td></tr>
           <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2018" style="display: block;">2018</a></td></tr>
           <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2017" style="display: block;">2017</a></td></tr>
           <tr><td><a href="http://conorsmith.ie/music/top-ten-albums-of-2016" style="display: block;">2016</a></td></tr>
