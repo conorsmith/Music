@@ -35,7 +35,7 @@ class ListAlbums extends Controller
 
     private function createQuery(Request $request)
     {
-        $filter = $request->query('filter');
+        $filter = $request->query('filter', []);
         $sort = $request->query('sort');
 
         return new class(
